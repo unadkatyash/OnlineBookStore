@@ -1,0 +1,21 @@
+﻿using FluentValidation;
+
+namespace OnlineBookStore.Business.ViewModels.Authentication
+{
+    public class RefreshTokenRequest
+    {
+        public string accessToken { get; set; } = string.Empty;
+
+        public string refreshToken { get; set; } = string.Empty;
+
+    }
+
+    public class ValidateRefreshTokenRequestValidator : AbstractValidator<RefreshTokenRequest>
+    {
+        public ValidateRefreshTokenRequestValidator()
+        {
+            RuleFor(x => x.accessToken).NotEmpty().NotNull();
+            RuleFor(x => x.refreshToken).NotEmpty().NotNull();
+        }
+    }
+}

@@ -1,11 +1,17 @@
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Bussiness.deps.json
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Bussiness.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Bussiness.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Common.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Database.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Common.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\bin\Debug\net8.0\OnlineBookStore.Database.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.csproj.AssemblyReference.cache
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.AssemblyInfoInputs.cache
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.AssemblyInfo.cs
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.csproj.CoreCompileInputs.cache
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.sourcelink.json
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBo.4D86C605.Up2Date
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\refint\OnlineBookStore.Bussiness.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Bussiness\obj\Debug\net8.0\OnlineBookStore.Bussiness.pdb

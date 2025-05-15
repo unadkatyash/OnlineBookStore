@@ -6,12 +6,35 @@ using System.Threading.Tasks;
 
 namespace OnlineBookStore.Database.Models
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class User
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FullName { get; set; } = string.Empty;
+
+        [Required, MaxLength(150)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required, MaxLength(150)]
+        public string LastName { get; set; } = string.Empty;
+
+        [Required, MaxLength(250)]
         public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
+
+        [Required, MaxLength(100)]
+        public string Password { get; set; } = string.Empty;
+
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpiryTime { get; set; }
+
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public bool IsDeleted { get; set; } = false;
 
         public int RoleId { get; set; }
         public UserRole Role { get; set; } = null!;
