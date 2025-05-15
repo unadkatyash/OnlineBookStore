@@ -1,0 +1,12 @@
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\bin\Debug\net8.0\OnlineBookStore.Database.deps.json
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\bin\Debug\net8.0\OnlineBookStore.Database.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\bin\Debug\net8.0\OnlineBookStore.Database.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.AssemblyInfoInputs.cache
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.AssemblyInfo.cs
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.csproj.CoreCompileInputs.cache
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.sourcelink.json
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\refint\OnlineBookStore.Database.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\OnlineBookStore.Database.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.Database\obj\Debug\net8.0\ref\OnlineBookStore.Database.dll
