@@ -1,0 +1,72 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnlineBookStore.Bussiness.IService;
+using OnlineBookStore.Bussiness.ViewModels;
+using OnlineBookStore.Bussiness.ViewModels.Book;
+using OnlineBookStore.Database.Models;
+
+namespace OnlineBookStore.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize(Roles = "Admin")]
+    public class BookController : BaseController
+    {
+        private readonly IBookService _bookService;
+
+        public BookController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateBook([FromBody] BookRequest request)
+        {
+            var result = await _bookService.CreateBookAsync(request);
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookRequest request)
+        {
+            var result = await _bookService.UpdateBookAsync(id, request);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            var result = await _bookService.DeleteBookAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetBook(int id)
+        {
+            var result = await _bookService.GetBookByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetBooks()
+        {
+            var result = await _bookService.GetAllBooksAsync();
+            return Ok(result);
+        }
+    }
+}

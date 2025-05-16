@@ -28,6 +28,7 @@ namespace OnlineBookStore.API.Extenstion
         public static void RegisterRequestValidatorDependencies(this IServiceCollection services)
         {
             services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddScoped<IValidator<SignUpRequest>, SignUpRequestValidator>();
         }
         public static void RegisterConfiguration(this IServiceCollection services, IConfiguration configuration)
         {

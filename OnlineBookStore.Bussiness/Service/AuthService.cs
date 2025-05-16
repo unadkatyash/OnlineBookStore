@@ -73,37 +73,8 @@ public class AuthService : BaseService, IAuthService
             }
         }
 
-
-
-
         return new ApiResponse(HttpStatusCode.OK, new List<string> { CommonMessage.LoginSuccessful }, responseData);
     }
-
-    private List<Claim> GetClaims(User user) => new()
-    {
-        new Claim("username", user.FirstName+" "+user.LastName),
-        new Claim("email", user.Email),
-        new Claim("id", user.Id.ToString())
-    };
-
-    public string GenerateToken(User user)
-    {
-        var claims = GetClaims(user);
-        var key = Encoding.ASCII.GetBytes(_appConfiguration.Key);
-
-        var tokenOptions = new JwtSecurityToken(
-            issuer: _appConfiguration.Issuer,
-            audience: _appConfiguration.Audience,
-            claims: claims,
-            expires: GetTokenExpiry(),
-            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-    }
-
-    private DateTime GetTokenExpiry() =>
-     CommonHelper.GetCurrentDateTime().AddMinutes(_appConfiguration.AccessTokenExpiryMinutes);
 
     public async Task<ApiResponse> RefreshTokenValidate(RefreshTokenRequest refreshTokenRequest)
     {
@@ -134,6 +105,65 @@ public class AuthService : BaseService, IAuthService
         return new ApiResponse(HttpStatusCode.OK, new List<string> { string.Format(CommonMessage.Message_SuccessSave, "Password") }, res);
     }
 
+    public async Task<ApiResponse> SignUp(SignUpRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+        {
+            return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { CommonMessage.InvalidRequest });
+        }
+
+        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        if (existingUser != null)
+        {
+            return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { string.Format(CommonMessage.AlreadyExists, "User") });
+        }
+
+        var user = new User
+        {
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Email = request.Email,
+            Password = EncryptDecryptHelper.Encrypt(request.Password),
+            RoleId = 2,
+            CreatedAt = DateTime.UtcNow,
+            IsDeleted = false
+        };
+
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
+
+        return new ApiResponse(HttpStatusCode.OK, new List<string> { string.Format(CommonMessage.Message_SuccessSave, "User") });
+    }
+
+    #region Helper Methods
+
+    private List<Claim> GetClaims(User user) => new()
+    {
+        new Claim("username", user.FirstName+" "+user.LastName),
+        new Claim("email", user.Email),
+        new Claim("id", user.Id.ToString()),
+        //new Claim("role", user.Role.RoleName.ToString())
+    };
+
+    public string GenerateToken(User user)
+    {
+        var claims = GetClaims(user);
+        var key = Encoding.ASCII.GetBytes(_appConfiguration.Key);
+
+        var tokenOptions = new JwtSecurityToken(
+            issuer: _appConfiguration.Issuer,
+            audience: _appConfiguration.Audience,
+            claims: claims,
+            expires: GetTokenExpiry(),
+            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+    }
+
+    private DateTime GetTokenExpiry() =>
+     CommonHelper.GetCurrentDateTime().AddMinutes(_appConfiguration.AccessTokenExpiryMinutes);
+    
     public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
     {
         var tokenValidationParameters = new TokenValidationParameters
@@ -175,8 +205,5 @@ public class AuthService : BaseService, IAuthService
         }
     }
 
-    public string EncryptText(string input)
-    {
-        return EncryptDecryptHelper.Encrypt(input);
-    }
+    #endregion
 }

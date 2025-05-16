@@ -16,14 +16,26 @@ namespace OnlineBookStore.API.Controllers
             _authService = authService;
         }
 
-        [HttpPost("Login")]
+        [HttpPost("LogIn")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            return Ok(await _authService.Login(loginRequest));
+            var result = await _authService.Login(loginRequest);
+            return Ok(result);
         }
+
+        [HttpPost("SignUp")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
+        {
+            var result = await _authService.SignUp(request);
+            return Ok(result);
+        }
+
 
         [HttpPost("Refresh-Token")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -31,13 +43,15 @@ namespace OnlineBookStore.API.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest refreshTokenRequest)
         {
-            return Ok(await _authService.RefreshTokenValidate(refreshTokenRequest));
+            var result = await _authService.RefreshTokenValidate(refreshTokenRequest);
+            return Ok(result);
         }
 
         [HttpPost("encrypt")]
-        public IActionResult EncryptText([FromBody]string request)
+        public IActionResult EncryptText([FromBody] string request)
         {
-            return Ok(_authService.EncryptText(request));
+            var result = EncryptDecryptHelper.Encrypt(request);
+            return Ok(result);
         }
     }
 }

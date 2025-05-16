@@ -13,6 +13,7 @@ namespace OnlineBookStore.Bussiness.IService
     {
         Task<ApiResponse> Login(LoginRequest loginRequest);
         Task<ApiResponse> RefreshTokenValidate(RefreshTokenRequest refreshToken);
-        string EncryptText(string input);
+        Task<ApiResponse> SignUp(SignUpRequest request);
+
     }
 }
