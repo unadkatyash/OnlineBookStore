@@ -9,7 +9,7 @@ namespace OnlineBookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class MemberManagementController : BaseController
     {
         private readonly IMemberService _memberService;

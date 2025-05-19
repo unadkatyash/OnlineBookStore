@@ -40,14 +40,24 @@ public class AuthService : BaseService, IAuthService
             return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { CommonMessage.InvalidRequest });
         }
 
-        var user = await _context.Users.Include(u => u.Role)
-            .FirstOrDefaultAsync(x => x.Email.ToLower() == loginRequest.Email.ToLower() && !x.IsDeleted);
+        var user = await _context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(x => x.Email.ToLower() == loginRequest.Email.ToLower());
 
-        if (user == null || loginRequest.Password != EncryptDecryptHelper.Decrypt(user.Password))
+        if (user == null)
         {
             return new ApiResponse(HttpStatusCode.Unauthorized, new List<string> { CommonMessage.InvalidCredentials });
         }
 
+        if (user.IsDeleted)
+        {
+            return new ApiResponse(HttpStatusCode.Unauthorized, new List<string> { CommonMessage.UserInactiveOrDeleted });
+        }
+
+        if (loginRequest.Password != EncryptDecryptHelper.Decrypt(user.Password))
+        {
+            return new ApiResponse(HttpStatusCode.Unauthorized, new List<string> { CommonMessage.InvalidCredentials });
+        }
 
         var responseData = new
         {
@@ -112,10 +122,24 @@ public class AuthService : BaseService, IAuthService
             return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { CommonMessage.InvalidRequest });
         }
 
-        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+        var existingUser = await _context.Users
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == request.Email.ToLower());
+
         if (existingUser != null)
         {
-            return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { string.Format(CommonMessage.AlreadyExists, "User") });
+            if (existingUser.IsDeleted)
+            {
+                return new ApiResponse(HttpStatusCode.BadRequest, new List<string>
+            {
+                CommonMessage.EmailAssociatedWithDeletedUser
+            });
+            }
+
+            return new ApiResponse(HttpStatusCode.BadRequest, new List<string>
+            {
+                string.Format(CommonMessage.AlreadyExists, "User")
+            });
         }
 
         var user = new User
@@ -132,7 +156,10 @@ public class AuthService : BaseService, IAuthService
         await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
 
-        return new ApiResponse(HttpStatusCode.OK, new List<string> { string.Format(CommonMessage.Message_SuccessSave, "User") });
+        return new ApiResponse(HttpStatusCode.OK, new List<string>
+    {
+        string.Format(CommonMessage.Message_SuccessSave, "User")
+    });
     }
 
     #region Helper Methods

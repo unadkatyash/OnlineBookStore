@@ -8,7 +8,7 @@ namespace OnlineBookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BorrowBooksController : BaseController
     {
         private readonly IBorrowBooks _borrowBooks;

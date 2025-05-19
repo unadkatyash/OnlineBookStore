@@ -7,6 +7,7 @@ using OnlineBookStore.Bussiness.ViewModels;
 
 namespace OnlineBookStore.API.Controllers
 {
+    [Route("api/[controller]")]
     public class AuthController : BaseController
     {
         private readonly IAuthService _authService;
@@ -47,11 +48,11 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("encrypt")]
-        public IActionResult EncryptText([FromBody] string request)
-        {
-            var result = EncryptDecryptHelper.Encrypt(request);
-            return Ok(result);
-        }
+        //[HttpPost("encrypt")]
+        //public IActionResult EncryptText([FromBody] string request)
+        //{
+        //    var result = EncryptDecryptHelper.Encrypt(request);
+        //    return Ok(result);
+        //}
     }
 }

@@ -8,7 +8,7 @@ namespace OnlineBookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;

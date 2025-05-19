@@ -16,6 +16,8 @@ namespace OnlineBookStore.Common.Constants
         public const string AlreadyExists = "{0} already exists.";
         public const string UnauthorizedAccess = "You are not authorized to perform this action.";
         public const string MoreThan0 = "{0} must be greater than 0.";
+        public const string UserInactiveOrDeleted = "The user might be inactive or deleted. Please contact the administrator.";
+        public const string EmailAssociatedWithDeletedUser = "This email is associated with a deleted or inactive account. Please contact the administrator.";
 
         public const string Created = "{0} created successfully.";
         public const string Updated = "{0} updated successfully.";
