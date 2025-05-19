@@ -23,6 +23,8 @@ namespace OnlineBookStore.Database.Models
         public string ISBN { get; set; } = string.Empty;
         public int Quantity { get; set; }
         public decimal DailyCharge { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedOn { get; set; }
 
         public ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
     }

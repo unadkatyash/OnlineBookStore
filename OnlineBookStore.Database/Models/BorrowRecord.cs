@@ -20,9 +20,9 @@ namespace OnlineBookStore.Database.Models
         public int BookId { get; set; }
         public Book Book { get; set; } = null!;
 
-        public DateTime BorrowedAt { get; set; }
+        public DateTime BorrowedOn { get; set; }
         public DateTime DueDate { get; set; }
-        public DateTime? ReturnedAt { get; set; }
+        public DateTime? ReturnedOn { get; set; }
 
         public bool IsReturned { get; set; }
 

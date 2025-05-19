@@ -4,6 +4,8 @@ using OnlineBookStore.Business.ViewModels;
 using OnlineBookStore.Bussiness.IService;
 using OnlineBookStore.Bussiness.Service;
 using OnlineBookStore.Bussiness.ViewModels.Authentication;
+using OnlineBookStore.Bussiness.ViewModels.Author;
+using OnlineBookStore.Bussiness.ViewModels.Book;
 using OnlineBookStore.Common.AppSettings;
 
 namespace OnlineBookStore.API.Extenstion
@@ -27,11 +29,15 @@ namespace OnlineBookStore.API.Extenstion
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IAuthorService, AuthorService>();
+            services.AddTransient<IMemberService, MemberService>();
         }
         public static void RegisterRequestValidatorDependencies(this IServiceCollection services)
         {
             services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddScoped<IValidator<SignUpRequest>, SignUpRequestValidator>();
+            services.AddScoped<IValidator<AuthorRequest>, AuthorRequestValidator>();
+            services.AddScoped<IValidator<BookRequest>, BookRequestValidator>();
+
         }
         public static void RegisterConfiguration(this IServiceCollection services, IConfiguration configuration)
         {

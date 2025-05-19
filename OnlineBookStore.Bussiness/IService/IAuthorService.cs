@@ -5,7 +5,7 @@ namespace OnlineBookStore.Bussiness.IService
 {
     public interface IAuthorService
     {
-        Task<ApiResponse> GetAllAuthorsAsync();
+        Task<ApiResponse> GetAllAuthorsAsync(AuthorFilterRequest authorFilter);
 
         Task<ApiResponse> GetAuthorByIdAsync(int id);
 

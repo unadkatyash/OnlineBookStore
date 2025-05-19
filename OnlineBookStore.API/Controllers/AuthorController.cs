@@ -8,7 +8,7 @@ namespace OnlineBookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService _authorService;
@@ -51,9 +51,9 @@ namespace OnlineBookStore.API.Controllers
         [HttpGet("GetAuthorsList")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllAuthors()
+        public async Task<IActionResult> GetAllAuthors([FromQuery] AuthorFilterRequest authorFilter)
         {
-            var result = await _authorService.GetAllAuthorsAsync();
+            var result = await _authorService.GetAllAuthorsAsync(authorFilter);
             return Ok(result);
         }
 

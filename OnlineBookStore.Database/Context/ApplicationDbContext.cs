@@ -20,5 +20,6 @@ namespace OnlineBookStore.Database.Context
         public DbSet<Book> Books { get; set; }
         public DbSet<BorrowRecord> BorrowRecords { get; set; }
         public DbSet<PaymentSummary> PaymentSummaries { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
     }
 }

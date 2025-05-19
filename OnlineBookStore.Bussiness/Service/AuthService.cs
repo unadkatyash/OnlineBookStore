@@ -125,7 +125,7 @@ public class AuthService : BaseService, IAuthService
             Email = request.Email,
             Password = EncryptDecryptHelper.Encrypt(request.Password),
             RoleId = 2,
-            CreatedAt = DateTime.UtcNow,
+            CreatedOn = DateTime.UtcNow,
             IsDeleted = false
         };
 

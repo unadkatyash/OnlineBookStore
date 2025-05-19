@@ -22,6 +22,27 @@ namespace OnlineBookStore.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("OnlineBookStore.Database.Models.AppSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppSettings");
+                });
+
             modelBuilder.Entity("OnlineBookStore.Database.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -33,9 +54,15 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<string>("Bio")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -56,6 +83,9 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("DailyCharge")
                         .HasColumnType("numeric");
 
@@ -69,6 +99,9 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -91,6 +124,12 @@ namespace OnlineBookStore.Database.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.ToTable("BookCategories");
@@ -107,7 +146,7 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("BorrowedAt")
+                    b.Property<DateTime>("BorrowedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DueDate")
@@ -116,7 +155,7 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<bool>("IsReturned")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("ReturnedAt")
+                    b.Property<DateTime?>("ReturnedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserId")
@@ -145,7 +184,7 @@ namespace OnlineBookStore.Database.Migrations
                     b.Property<int>("BorrowRecordId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsPaid")
@@ -170,8 +209,11 @@ namespace OnlineBookStore.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CurrentBorrowedBooks")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -204,6 +246,9 @@ namespace OnlineBookStore.Database.Migrations
 
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatededOn")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

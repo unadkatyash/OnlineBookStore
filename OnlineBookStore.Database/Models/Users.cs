@@ -31,10 +31,13 @@ namespace OnlineBookStore.Database.Models
 
         public DateTime? RefreshTokenExpiryTime { get; set; }
 
-        [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
+        public DateTime? UpdatededOn { get; set; }
 
         public bool IsDeleted { get; set; } = false;
+        
+        public int CurrentBorrowedBooks { get; set; }
 
         public int RoleId { get; set; }
         public UserRole Role { get; set; } = null!;

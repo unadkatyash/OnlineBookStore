@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using OnlineBookStore.Business.Services;
 using OnlineBookStore.Bussiness.IService;
 using OnlineBookStore.Bussiness.ViewModels;
 using OnlineBookStore.Bussiness.ViewModels.Book;
@@ -14,11 +16,11 @@ using System.Threading.Tasks;
 
 namespace OnlineBookStore.Bussiness.Service
 {
-    public class BookService : IBookService
+    public class BookService : BaseService, IBookService
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public BookService(ApplicationDbContext dbContext)
+        public BookService(ApplicationDbContext dbContext, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _dbContext = dbContext;
         }
@@ -72,22 +74,38 @@ namespace OnlineBookStore.Bussiness.Service
 
         public async Task<ApiResponse> DeleteBookAsync(int id)
         {
-            var book = await _dbContext.Books.FindAsync(id);
+            var book = await _dbContext.Books
+                .Include(b => b.BorrowRecords.Where(br => !br.IsReturned))
+                    .ThenInclude(br => br.User)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
             if (book == null)
             {
                 return new ApiResponse(HttpStatusCode.NotFound, new List<string>
+                {
+                    CommonMessage.NotFound.Replace("{0}", "Book")
+                });
+            }
+
+            if (book.BorrowRecords.Any())
             {
-                CommonMessage.NotFound.Replace("{0}", "Book")
-            });
+                var borrowerNames = book.BorrowRecords
+                    .Select(br => $"{br.User.FirstName} {br.User.LastName}")
+                    .Distinct()
+                    .ToList();
+
+                string message = string.Format(CommonMessage.CannotDeleteBookBorrowed, string.Join(", ", borrowerNames));
+
+                return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { message });
             }
 
             _dbContext.Books.Remove(book);
             await _dbContext.SaveChangesAsync();
 
             return new ApiResponse(HttpStatusCode.OK, new List<string>
-        {
-            CommonMessage.Deleted.Replace("{0}", "Book")
-        });
+            {
+                CommonMessage.Deleted.Replace("{0}", "Book")
+            });
         }
 
         public async Task<ApiResponse> GetBookByIdAsync(int id)
@@ -117,16 +135,54 @@ namespace OnlineBookStore.Bussiness.Service
             };
 
             return new ApiResponse(HttpStatusCode.OK, new List<string>
-        {
-            CommonMessage.DataFetched.Replace("{0}", "Book")
-        }, dto);
+            {
+                CommonMessage.DataFetched.Replace("{0}", "Book")
+            }, dto);
         }
 
-        public async Task<ApiResponse> GetAllBooksAsync()
+        public async Task<ApiResponse> GetAllBooksAsync(BookFilterRequest filter)
         {
-            var books = await _dbContext.Books
+            var query = _dbContext.Books
                 .Include(b => b.Author)
                 .Include(b => b.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Title))
+            {
+                query = query.Where(b => b.Title.ToLower().Contains(filter.Title.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.AuthorName))
+            {
+                query = query.Where(b => b.Author.Name.ToLower().Contains(filter.AuthorName.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.CategoryName))
+            {
+                query = query.Where(b => b.Category.CategoryName.ToLower().Contains(filter.CategoryName.ToLower()));
+            }
+
+            var sortBy = filter.SortBy?.ToLower() ?? "title";
+            var sortOrder = filter.SortOrder?.ToLower() ?? "asc";
+
+            query = sortBy switch
+            {
+                "authorname" => sortOrder == "desc" ? query.OrderByDescending(b => b.Author.Name) : query.OrderBy(b => b.Author.Name),
+                "categoryname" => sortOrder == "desc" ? query.OrderByDescending(b => b.Category.CategoryName) : query.OrderBy(b => b.Category.CategoryName),
+                "isbn" => sortOrder == "desc" ? query.OrderByDescending(b => b.ISBN) : query.OrderBy(b => b.ISBN),
+                "quantity" => sortOrder == "desc" ? query.OrderByDescending(b => b.Quantity) : query.OrderBy(b => b.Quantity),
+                "dailycharge" => sortOrder == "desc" ? query.OrderByDescending(b => b.DailyCharge) : query.OrderBy(b => b.DailyCharge),
+                _ => sortOrder == "desc" ? query.OrderByDescending(b => b.Title) : query.OrderBy(b => b.Title),
+            };
+
+            var pageNumber = filter.PageNumber <= 0 ? 1 : filter.PageNumber;
+            var pageSize = filter.PageSize <= 0 ? 10 : filter.PageSize;
+
+            var totalRecords = await query.CountAsync();
+
+            var books = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(b => new BookResponse
                 {
                     Id = b.Id,
@@ -139,10 +195,19 @@ namespace OnlineBookStore.Bussiness.Service
                 })
                 .ToListAsync();
 
+            var responseData = new
+            {
+                TotalRecords = totalRecords,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Books = books
+            };
+
             return new ApiResponse(HttpStatusCode.OK, new List<string>
         {
-            CommonMessage.DataFetched.Replace("{0}", "Books")
-        }, books);
+                CommonMessage.DataFetched.Replace("{0}", "Books")
+            }, responseData);
         }
+
     }
 }

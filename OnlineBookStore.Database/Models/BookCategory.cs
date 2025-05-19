@@ -13,6 +13,8 @@ namespace OnlineBookStore.Database.Models
         public int Id { get; set; }
         [Required]
         public string CategoryName { get; set; } = string.Empty;
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedOn { get; set; }
 
         public ICollection<Book> Books { get; set; } = new List<Book>();
     }

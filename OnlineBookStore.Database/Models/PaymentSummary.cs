@@ -21,7 +21,7 @@ namespace OnlineBookStore.Database.Models
         public decimal PenaltyAmount { get; set; }
         public bool IsPaid { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     }
 
 }

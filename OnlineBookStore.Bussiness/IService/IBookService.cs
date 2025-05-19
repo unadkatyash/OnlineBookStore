@@ -13,7 +13,7 @@ namespace OnlineBookStore.Bussiness.IService
 
         Task<ApiResponse> GetBookByIdAsync(int id);
 
-        Task<ApiResponse> GetAllBooksAsync();
+        Task<ApiResponse> GetAllBooksAsync(BookFilterRequest bookFilterRequest);
     }
 
 }

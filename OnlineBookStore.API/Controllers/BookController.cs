@@ -9,7 +9,7 @@ namespace OnlineBookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
@@ -63,9 +63,9 @@ namespace OnlineBookStore.API.Controllers
         [HttpGet("GetsBookList")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetBooks()
+        public async Task<IActionResult> GetBooks([FromQuery] BookFilterRequest bookFilterRequest)
         {
-            var result = await _bookService.GetAllBooksAsync();
+            var result = await _bookService.GetAllBooksAsync(bookFilterRequest);
             return Ok(result);
         }
     }
