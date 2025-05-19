@@ -40,7 +40,7 @@ public class AuthService : BaseService, IAuthService
             return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { CommonMessage.InvalidRequest });
         }
 
-        var user = await _context.Users
+        var user = await _context.Users.Include(u => u.Role)
             .FirstOrDefaultAsync(x => x.Email.ToLower() == loginRequest.Email.ToLower() && !x.IsDeleted);
 
         if (user == null || loginRequest.Password != EncryptDecryptHelper.Decrypt(user.Password))
@@ -87,7 +87,7 @@ public class AuthService : BaseService, IAuthService
         var username = principal?.Identity?.Name; //this is mapped to the Name claim by default
         var emailClaim = principal?.FindFirst(ClaimTypes.Email);
         var email = principal?.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value ?? string.Empty;
-        var user = await _context.Users
+        var user = await _context.Users.Include(u => u.Role)
             .FirstOrDefaultAsync(x => x.Email == email.ToString().ToLower() && !x.IsDeleted);
         if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
             return new ApiResponse(HttpStatusCode.BadRequest, new List<string> { CommonMessage.UserNotExist });
@@ -142,7 +142,7 @@ public class AuthService : BaseService, IAuthService
         new Claim("username", user.FirstName+" "+user.LastName),
         new Claim("email", user.Email),
         new Claim("id", user.Id.ToString()),
-        //new Claim("role", user.Role.RoleName.ToString())
+        new Claim(ClaimTypes.Role, user.Role.RoleName)
     };
 
     public string GenerateToken(User user)

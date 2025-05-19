@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using OnlineBookStore.Business.ViewModels;
 using OnlineBookStore.Bussiness.IService;
+using OnlineBookStore.Bussiness.Service;
 using OnlineBookStore.Bussiness.ViewModels.Authentication;
 using OnlineBookStore.Common.AppSettings;
 
@@ -24,6 +25,8 @@ namespace OnlineBookStore.API.Extenstion
         public static void RegisterServiceDependencies(this IServiceCollection services)
         {
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IAuthorService, AuthorService>();
         }
         public static void RegisterRequestValidatorDependencies(this IServiceCollection services)
         {

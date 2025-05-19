@@ -18,26 +18,7 @@ namespace OnlineBookStore.API.Controllers
             _authorService = authorService;
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllAuthors()
-        {
-            var result = await _authorService.GetAllAuthorsAsync();
-            return Ok(result);
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAuthorById(int id)
-        {
-            var result = await _authorService.GetAuthorByIdAsync(id);
-            return Ok(result);
-        }
-
-        [HttpPost]
+        [HttpPost("AddAuthor")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -47,7 +28,7 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("EditAuthor")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -57,13 +38,32 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAuthor")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
             var result = await _authorService.DeleteAuthorAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("GetAuthorsList")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllAuthors()
+        {
+            var result = await _authorService.GetAllAuthorsAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("GetAuthorDetails")]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAuthorById(int id)
+        {
+            var result = await _authorService.GetAuthorByIdAsync(id);
             return Ok(result);
         }
     }
