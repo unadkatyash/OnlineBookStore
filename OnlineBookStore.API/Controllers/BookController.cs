@@ -7,9 +7,8 @@ using OnlineBookStore.Database.Models;
 
 namespace OnlineBookStore.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Route("api/[controller]")]
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
@@ -19,6 +18,7 @@ namespace OnlineBookStore.API.Controllers
             _bookService = bookService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddBook")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -29,6 +29,7 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("EditBook")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -40,6 +41,7 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteBook")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -50,6 +52,7 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("GetBookDetails")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
@@ -60,12 +63,13 @@ namespace OnlineBookStore.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("GetsBookList")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetBooks([FromQuery] BookFilterRequest bookFilterRequest)
+        public async Task<IActionResult> GetBooks([FromQuery] BookFilterRequest filter)
         {
-            var result = await _bookService.GetAllBooksAsync(bookFilterRequest);
+            var result = await _bookService.GetAllBooksAsync(filter);
             return Ok(result);
         }
     }

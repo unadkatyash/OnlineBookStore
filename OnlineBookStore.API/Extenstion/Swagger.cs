@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace OnlineBookStore.API.Extensions
+namespace OnlineBookStore.API.Extenstion
 {
     public static class Swagger
     {

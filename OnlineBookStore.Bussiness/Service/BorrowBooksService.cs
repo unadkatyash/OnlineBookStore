@@ -125,5 +125,140 @@ namespace OnlineBookStore.Business.Service
                 $"Total Amount Paid: {amount + penalty}"
             });
         }
+
+        public async Task<ApiResponse> GetAllBorrowRecordsAsync(BorrowRecordFilterRequest filter)
+        {
+            var query = _context.BorrowRecords
+                .Include(br => br.User)
+                .Include(br => br.Book)
+                    .ThenInclude(b => b.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.UserName))
+            {
+                query = query.Where(br =>
+                    (br.User.FirstName + " " + br.User.LastName).ToLower().Contains(filter.UserName.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.BookTitle))
+            {
+                query = query.Where(br => br.Book.Title.ToLower().Contains(filter.BookTitle.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.CategoryName))
+            {
+                query = query.Where(br => br.Book.Category.CategoryName.ToLower().Contains(filter.CategoryName.ToLower()));
+            }
+
+            var sortBy = filter.SortBy?.ToLower() ?? "borrowedon";
+            var sortOrder = filter.SortOrder?.ToLower() ?? "desc";
+
+            query = sortBy switch
+            {
+                "username" => sortOrder == "desc" ? query.OrderByDescending(br => br.User.FirstName) : query.OrderBy(br => br.User.FirstName),
+                "booktitle" => sortOrder == "desc" ? query.OrderByDescending(br => br.Book.Title) : query.OrderBy(br => br.Book.Title),
+                "categoryname" => sortOrder == "desc" ? query.OrderByDescending(br => br.Book.Category.CategoryName) : query.OrderBy(br => br.Book.Category.CategoryName),
+                _ => sortOrder == "desc" ? query.OrderByDescending(br => br.BorrowedOn) : query.OrderBy(br => br.BorrowedOn),
+            };
+
+            var pageNumber = filter.PageNumber <= 0 ? 1 : filter.PageNumber;
+            var pageSize = filter.PageSize <= 0 ? 10 : filter.PageSize;
+            var totalRecords = await query.CountAsync();
+
+            var borrowRecords = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(br => new BorrowRecordResponse
+                {
+                    Id = br.Id,
+                    UserName = $"{br.User.FirstName} {br.User.LastName}",
+                    BookTitle = br.Book.Title,
+                    CategoryName = br.Book.Category.CategoryName,
+                    BorrowedOn = br.BorrowedOn.ToString("dd-MM-yyyy"),
+                    DueDate = br.DueDate.ToString("dd-MM-yyyy"),
+                    ReturnedOn = br.ReturnedOn.HasValue ? br.ReturnedOn.Value.ToString("dd-MM-yyyy") : string.Empty,
+                    IsReturned = br.IsReturned
+                })
+                .ToListAsync();
+
+            var responseData = new
+            {
+                TotalRecords = totalRecords,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Records = borrowRecords
+            };
+
+            return new ApiResponse(HttpStatusCode.OK, new List<string> { CommonMessage.DataFetched.Replace("{0}", "Borrow records") }, responseData);
+        }
+
+        public async Task<ApiResponse> GetAllPaymentSummariesAsync(PaymentSummaryFilterRequest filter)
+        {
+            var query = _context.PaymentSummaries
+                .Include(ps => ps.BorrowRecord)
+                    .ThenInclude(br => br.User)
+                .Include(ps => ps.BorrowRecord.Book)
+                    .ThenInclude(b => b.Category)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.UserName))
+            {
+                query = query.Where(ps =>
+                    (ps.BorrowRecord.User.FirstName + " " + ps.BorrowRecord.User.LastName).ToLower().Contains(filter.UserName.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.BookTitle))
+            {
+                query = query.Where(ps => ps.BorrowRecord.Book.Title.ToLower().Contains(filter.BookTitle.ToLower()));
+            }
+
+            var sortBy = filter.SortBy?.ToLower() ?? "createdon";
+            var sortOrder = filter.SortOrder?.ToLower() ?? "desc";
+
+            query = sortBy switch
+            {
+                "username" => sortOrder == "desc"
+                    ? query.OrderByDescending(ps => ps.BorrowRecord.User.FirstName)
+                    : query.OrderBy(ps => ps.BorrowRecord.User.FirstName),
+                "booktitle" => sortOrder == "desc"
+                    ? query.OrderByDescending(ps => ps.BorrowRecord.Book.Title)
+                    : query.OrderBy(ps => ps.BorrowRecord.Book.Title),
+                _ => sortOrder == "desc"
+                    ? query.OrderByDescending(ps => ps.CreatedOn)
+                    : query.OrderBy(ps => ps.CreatedOn),
+            };
+
+            var pageNumber = filter.PageNumber <= 0 ? 1 : filter.PageNumber;
+            var pageSize = filter.PageSize <= 0 ? 10 : filter.PageSize;
+            var totalRecords = await query.CountAsync();
+
+            var payments = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(ps => new PaymentSummaryResponse
+                {
+                    Id = ps.Id,
+                    UserName = $"{ps.BorrowRecord.User.FirstName} {ps.BorrowRecord.User.LastName}",
+                    BookTitle = ps.BorrowRecord.Book.Title,
+                    Amount = ps.Amount,
+                    PenaltyAmount = ps.PenaltyAmount,
+                    TotalAmountPaid = ps.Amount + ps.PenaltyAmount,
+                    IsPaid = ps.IsPaid,
+                    CreatedOn = ps.CreatedOn
+                })
+                .ToListAsync();
+
+            var responseData = new
+            {
+                TotalRecords = totalRecords,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Records = payments
+            };
+
+            return new ApiResponse(HttpStatusCode.OK, new List<string> { CommonMessage.DataFetched.Replace("{0}", "Payment summaries") }, responseData);
+        }
+
+
     }
 }

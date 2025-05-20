@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using OnlineBookStore.API.Extensions;
 using OnlineBookStore.API.Extenstion;
 using OnlineBookStore.Database.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Custom middleware to return JSON response for 403 Forbidden
 app.Use(async (context, next) =>
 {
     await next();
@@ -41,6 +42,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

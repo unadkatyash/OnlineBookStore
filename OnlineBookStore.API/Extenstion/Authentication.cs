@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace OnlineBookStore.API.Extensions
+namespace OnlineBookStore.API.Extenstion
 {
     public static class Authentication
     {

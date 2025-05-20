@@ -6,8 +6,8 @@ using OnlineBookStore.Business.ViewModels.Author;
 
 namespace OnlineBookStore.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
     public class AuthorController : BaseController
     {
@@ -51,9 +51,9 @@ namespace OnlineBookStore.API.Controllers
         [HttpGet("GetAuthorsList")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllAuthors([FromQuery] AuthorFilterRequest authorFilter)
+        public async Task<IActionResult> GetAllAuthors([FromQuery] AuthorFilterRequest filter)
         {
-            var result = await _authorService.GetAllAuthorsAsync(authorFilter);
+            var result = await _authorService.GetAllAuthorsAsync(filter);
             return Ok(result);
         }
 

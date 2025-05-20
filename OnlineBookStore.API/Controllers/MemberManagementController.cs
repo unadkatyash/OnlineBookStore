@@ -7,8 +7,8 @@ using OnlineBookStore.Business.ViewModels.Member;
 
 namespace OnlineBookStore.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
     public class MemberManagementController : BaseController
     {

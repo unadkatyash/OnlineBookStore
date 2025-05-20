@@ -5,6 +5,7 @@ using OnlineBookStore.Business.ViewModels.Authentication;
 
 namespace OnlineBookStore.API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {
