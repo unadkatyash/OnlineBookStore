@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBookStore.Bussiness.IService;
-using OnlineBookStore.Bussiness.Service;
-using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.Member;
+using OnlineBookStore.Business.IService;
+using OnlineBookStore.Business.Service;
+using OnlineBookStore.Business.ViewModels;
+using OnlineBookStore.Business.ViewModels.Member;
 
 namespace OnlineBookStore.API.Controllers
 {

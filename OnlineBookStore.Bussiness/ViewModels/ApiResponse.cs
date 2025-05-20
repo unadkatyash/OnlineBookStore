@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace OnlineBookStore.Bussiness.ViewModels
+namespace OnlineBookStore.Business.ViewModels
 {
     public class ApiResponse
     {

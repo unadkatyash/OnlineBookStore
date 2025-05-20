@@ -1,7 +1,7 @@
-﻿using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.Author;
+﻿using OnlineBookStore.Business.ViewModels;
+using OnlineBookStore.Business.ViewModels.Author;
 
-namespace OnlineBookStore.Bussiness.IService
+namespace OnlineBookStore.Business.IService
 {
     public interface IAuthorService
     {

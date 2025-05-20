@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.ViewModels.BorrowBooks
+namespace OnlineBookStore.Business.ViewModels.BorrowBooks
 {
     public class BorrowBookRequest
     {

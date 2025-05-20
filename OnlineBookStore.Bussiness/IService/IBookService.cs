@@ -1,7 +1,7 @@
-﻿using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.Book;
+﻿using OnlineBookStore.Business.ViewModels;
+using OnlineBookStore.Business.ViewModels.Book;
 
-namespace OnlineBookStore.Bussiness.IService
+namespace OnlineBookStore.Business.IService
 {
     public interface IBookService
     {

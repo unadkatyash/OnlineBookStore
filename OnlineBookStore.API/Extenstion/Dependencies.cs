@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using OnlineBookStore.Business.IService;
+using OnlineBookStore.Business.Service;
 using OnlineBookStore.Business.ViewModels;
-using OnlineBookStore.Bussiness.IService;
-using OnlineBookStore.Bussiness.Service;
-using OnlineBookStore.Bussiness.ViewModels.Authentication;
-using OnlineBookStore.Bussiness.ViewModels.Author;
-using OnlineBookStore.Bussiness.ViewModels.Book;
+using OnlineBookStore.Business.ViewModels.Authentication;
+using OnlineBookStore.Business.ViewModels.Author;
+using OnlineBookStore.Business.ViewModels.Book;
 using OnlineBookStore.Common.AppSettings;
 
 namespace OnlineBookStore.API.Extenstion

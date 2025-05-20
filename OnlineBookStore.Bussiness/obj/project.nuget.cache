@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "to7gzJkL39ZgDHg9faNmuUL2lhUBBxkZQ6ghEnA0PcCXL6oAH07U8xFVumMnN5JB6du8v7DHnOGdghGgdHuUMg==",
+  "dgSpecHash": "JRQiolpiqCZfDznCdm6H5LSJraBfjnI3EbM8EIWVQlk9BqCxZiSeW/rucZf3/aae3q/tXCiosAaQ7LA7SuWcFw==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj",
+  "projectFilePath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pce19\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\pce19\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",

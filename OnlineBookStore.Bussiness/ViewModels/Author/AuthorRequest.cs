@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using OnlineBookStore.Bussiness.ViewModels.BorrowBooks;
+using OnlineBookStore.Business.ViewModels.BorrowBooks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.ViewModels.Author
+namespace OnlineBookStore.Business.ViewModels.Author
 {
     public class AuthorRequest
     {

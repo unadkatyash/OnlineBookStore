@@ -1,6 +1,6 @@
-﻿using OnlineBookStore.Bussiness.IService;
-using OnlineBookStore.Bussiness.ViewModels.Member;
-using OnlineBookStore.Bussiness.ViewModels;
+﻿using OnlineBookStore.Business.IService;
+using OnlineBookStore.Business.ViewModels.Member;
+using OnlineBookStore.Business.ViewModels;
 using OnlineBookStore.Common.Constants;
 using OnlineBookStore.Database.Context;
 using System;
@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineBookStore.Business.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace OnlineBookStore.Bussiness.Service
+namespace OnlineBookStore.Business.Service
 {
     public class MemberService : BaseService, IMemberService
     {

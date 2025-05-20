@@ -1351,9 +1351,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj",
-      "projectName": "OnlineBookStore.Bussiness",
-      "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj",
+      "projectUniqueName": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj",
+      "projectName": "OnlineBookStore.Business",
+      "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj",
       "packagesPath": "C:\\Users\\pce19\\.nuget\\packages\\",
       "outputPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\obj\\",
       "projectStyle": "PackageReference",

@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using OnlineBookStore.Bussiness.ViewModels.Authentication;
+using OnlineBookStore.Business.ViewModels.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.ViewModels.Author
+namespace OnlineBookStore.Business.ViewModels.Author
 {
     public class AuthorFilterRequest
     {

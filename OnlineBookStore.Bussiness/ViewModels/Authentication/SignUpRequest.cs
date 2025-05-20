@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.ViewModels.Authentication
+namespace OnlineBookStore.Business.ViewModels.Authentication
 {
     public class SignUpRequest
     {

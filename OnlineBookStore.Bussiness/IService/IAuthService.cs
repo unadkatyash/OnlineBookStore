@@ -1,13 +1,12 @@
 ﻿using OnlineBookStore.Business.ViewModels.Authentication;
-using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.Authentication;
+using OnlineBookStore.Business.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.IService
+namespace OnlineBookStore.Business.IService
 {
     public interface IAuthService
     {

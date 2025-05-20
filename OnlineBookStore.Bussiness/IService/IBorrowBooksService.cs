@@ -1,12 +1,12 @@
-﻿using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.BorrowBooks;
+﻿using OnlineBookStore.Business.ViewModels;
+using OnlineBookStore.Business.ViewModels.BorrowBooks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.IService
+namespace OnlineBookStore.Business.IService
 {
     public interface IBorrowBooksService
     {

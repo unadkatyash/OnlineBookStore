@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OnlineBookStore.Business.Services;
-using OnlineBookStore.Bussiness.IService;
-using OnlineBookStore.Bussiness.ViewModels;
-using OnlineBookStore.Bussiness.ViewModels.Book;
+using OnlineBookStore.Business.IService;
+using OnlineBookStore.Business.ViewModels;
+using OnlineBookStore.Business.ViewModels.Book;
 using OnlineBookStore.Common.Constants;
 using OnlineBookStore.Database.Context;
 using OnlineBookStore.Database.Models;
@@ -14,7 +14,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineBookStore.Bussiness.Service
+namespace OnlineBookStore.Business.Service
 {
     public class BookService : BaseService, IBookService
     {

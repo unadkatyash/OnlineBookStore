@@ -125,10 +125,10 @@ D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Bussiness.dll
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Business.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Common.dll
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Database.dll
-D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Bussiness.pdb
+D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Business.pdb
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Database.pdb
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\bin\Debug\net8.0\OnlineBookStore.Common.pdb
 D:\Projects\New Project\RV\OnlineBookStore\OnlineBookStore.API\obj\Debug\net8.0\OnlineBookStore.API.csproj.AssemblyReference.cache

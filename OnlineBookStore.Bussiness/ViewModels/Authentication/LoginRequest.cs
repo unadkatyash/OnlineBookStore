@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 
-namespace OnlineBookStore.Bussiness.ViewModels.Authentication
+namespace OnlineBookStore.Business.ViewModels.Authentication
 {
     public class LoginRequest
     {

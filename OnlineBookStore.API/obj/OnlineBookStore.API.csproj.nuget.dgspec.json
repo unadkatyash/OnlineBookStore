@@ -31,8 +31,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj": {
-                "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj"
+              "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj": {
+                "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj"
               },
               "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Database\\OnlineBookStore.Database.csproj": {
                 "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Database\\OnlineBookStore.Database.csproj"
@@ -97,12 +97,12 @@
         }
       }
     },
-    "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj": {
+    "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj",
-        "projectName": "OnlineBookStore.Bussiness",
-        "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Bussiness.csproj",
+        "projectUniqueName": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj",
+        "projectName": "OnlineBookStore.Business",
+        "projectPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\OnlineBookStore.Business.csproj",
         "packagesPath": "C:\\Users\\pce19\\.nuget\\packages\\",
         "outputPath": "D:\\Projects\\New Project\\RV\\OnlineBookStore\\OnlineBookStore.Bussiness\\obj\\",
         "projectStyle": "PackageReference",
