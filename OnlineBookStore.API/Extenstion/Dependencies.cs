@@ -30,7 +30,7 @@ namespace OnlineBookStore.API.Extenstion
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IMemberService, MemberService>();
-            services.AddTransient<IBorrowBooks, BorrowBooks>();
+            services.AddTransient<IBorrowBooksService, BorrowBooksService>();
         }
         public static void RegisterRequestValidatorDependencies(this IServiceCollection services)
         {

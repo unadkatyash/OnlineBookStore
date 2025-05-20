@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineBookStore.Bussiness.IService
 {
-    public interface IBorrowBooks
+    public interface IBorrowBooksService
     {
         Task<ApiResponse> BorrowBookAsync(BorrowBookRequest request);
         Task<ApiResponse> ReturnBookAsync(ReturnBookRequest request);

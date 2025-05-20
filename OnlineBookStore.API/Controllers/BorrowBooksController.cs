@@ -11,9 +11,9 @@ namespace OnlineBookStore.API.Controllers
     [Authorize]
     public class BorrowBooksController : BaseController
     {
-        private readonly IBorrowBooks _borrowBooks;
+        private readonly IBorrowBooksService _borrowBooks;
 
-        public BorrowBooksController(IBorrowBooks borrowBooks)
+        public BorrowBooksController(IBorrowBooksService borrowBooks)
         {
             _borrowBooks = borrowBooks;
         }

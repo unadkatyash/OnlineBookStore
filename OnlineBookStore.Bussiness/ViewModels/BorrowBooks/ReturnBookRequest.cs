@@ -12,9 +12,6 @@ namespace OnlineBookStore.Bussiness.ViewModels.BorrowBooks
     public class ReturnBookRequest
     {
         [Required]
-        public int UserId { get; set; }
-
-        [Required]
         public int BookId { get; set; }
     }
 
@@ -22,9 +19,6 @@ namespace OnlineBookStore.Bussiness.ViewModels.BorrowBooks
     {
         public ReturnBookRequestValidator()
         {
-            RuleFor(x => x.UserId)
-                .GreaterThan(0).WithMessage(CommonMessage.MoreThan0.Replace("{0}", "UserId"));
-
             RuleFor(x => x.BookId)
                 .GreaterThan(0).WithMessage(CommonMessage.MoreThan0.Replace("{0}", "BookId"));
         }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineBookStore.Database.Context;
@@ -11,9 +12,11 @@ using OnlineBookStore.Database.Context;
 namespace OnlineBookStore.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250520064154_AddTotalAmountPaidToPaymentSummary")]
+    partial class AddTotalAmountPaidToPaymentSummary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,6 +194,9 @@ namespace OnlineBookStore.Database.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<decimal>("PenaltyAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("TotalAmountPaid")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");

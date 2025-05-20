@@ -16,18 +16,20 @@ using Microsoft.AspNetCore.Http;
 
 namespace OnlineBookStore.Bussiness.Service
 {
-    public class BorrowBooks : BaseService, IBorrowBooks
+    public class BorrowBooksService : BaseService, IBorrowBooksService
     {
         private readonly ApplicationDbContext _context;
 
-        public BorrowBooks(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        public BorrowBooksService(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _context = context;
         }
 
         public async Task<ApiResponse> BorrowBookAsync(BorrowBookRequest request)
         {
-            var user = await _context.Users.FindAsync(request.UserId);
+            var userId = GetCurrentUserId();
+
+            var user = await _context.Users.FindAsync(userId);
             var book = await _context.Books.FindAsync(request.BookId);
 
             if (user == null || book == null)
@@ -51,8 +53,8 @@ namespace OnlineBookStore.Bussiness.Service
             {
                 UserId = user.Id,
                 BookId = book.Id,
-                BorrowedOn = DateTime.UtcNow,
-                DueDate = DateTime.UtcNow.AddDays(7),
+                BorrowedOn = DateTime.UtcNow.Date,
+                DueDate = DateTime.UtcNow.Date.AddDays(7),
                 IsReturned = false
             };
 
@@ -67,26 +69,28 @@ namespace OnlineBookStore.Bussiness.Service
 
         public async Task<ApiResponse> ReturnBookAsync(ReturnBookRequest request)
         {
+            var userId = GetCurrentUserId();
+
             var borrowRecord = await _context.BorrowRecords
                 .Include(br => br.Book)
                 .Include(br => br.User)
-                .FirstOrDefaultAsync(br => br.UserId == request.UserId && br.BookId == request.BookId && !br.IsReturned);
+                .FirstOrDefaultAsync(br => br.UserId == userId && br.BookId == request.BookId && !br.IsReturned);
 
             if (borrowRecord == null)
                 return new ApiResponse(HttpStatusCode.NotFound, new List<string> { CommonMessage.NotFound.Replace("{0}", "Borrow record") });
 
-            var today = DateTime.UtcNow;
+            var today = DateTime.UtcNow.Date;
             borrowRecord.ReturnedOn = today;
             borrowRecord.IsReturned = true;
 
-            var dueDate = borrowRecord.DueDate;
-            var borrowedOn = borrowRecord.BorrowedOn;
+            var borrowedOn = borrowRecord.BorrowedOn.Date;
+            var dueDate = borrowRecord.DueDate.Date;
             var perDayCharge = borrowRecord.Book.DailyCharge;
 
-            var totalDays = (dueDate - borrowedOn).Days;
-            totalDays = totalDays < 1 ? 1 : totalDays;
+            var actualDays = (today - borrowedOn).Days;
+            actualDays = actualDays < 1 ? 1 : actualDays;
 
-            decimal amount = perDayCharge * totalDays;
+            decimal amount = perDayCharge * actualDays;
 
             decimal penalty = 0;
             if (today > dueDate)
@@ -105,6 +109,7 @@ namespace OnlineBookStore.Bussiness.Service
                 BorrowRecordId = borrowRecord.Id,
                 Amount = amount,
                 PenaltyAmount = penalty,
+                TotalAmountPaid = amount + penalty,
                 IsPaid = true,
                 CreatedOn = DateTime.UtcNow
             };
@@ -116,7 +121,8 @@ namespace OnlineBookStore.Bussiness.Service
             {
                 "Book returned successfully.",
                 $"Rental Charge: {amount}",
-                penalty > 0 ? $"Penalty Applied: {penalty}" : "No penalty applied."
+                penalty > 0 ? $"Penalty Applied: {penalty}" : "No penalty applied.",
+                $"Total Amount Paid: {amount + penalty}"
             });
         }
     }
